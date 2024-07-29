@@ -809,8 +809,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 749662918}
         m_TargetAssemblyTypeName: CharUpgradeManager, Assembly-CSharp
-        m_MethodName: UpgradeHealth
-        m_Mode: 1
+        m_MethodName: Upgrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1275,6 +1275,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  inGameChar:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   charSpawnPoints:
   - {fileID: 77042273}
   - {fileID: 765849682}
@@ -1520,12 +1525,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 749662918}
         m_TargetAssemblyTypeName: CharUpgradeManager, Assembly-CSharp
-        m_MethodName: UpgradeHealing
-        m_Mode: 1
+        m_MethodName: Upgrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2316,12 +2321,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 749662918}
         m_TargetAssemblyTypeName: CharUpgradeManager, Assembly-CSharp
-        m_MethodName: UpgradeGold
-        m_Mode: 1
+        m_MethodName: Upgrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -4649,7 +4654,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: -2.7453232, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5717,12 +5722,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 749662918}
         m_TargetAssemblyTypeName: CharUpgradeManager, Assembly-CSharp
-        m_MethodName: UpgradeSkill
-        m_Mode: 1
+        m_MethodName: Upgrade
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -6413,28 +6418,30 @@ MonoBehaviour:
   healthManager: {fileID: 1691439023}
   skillManager: {fileID: 779271130}
   goodsBehavior: {fileID: 2008382885}
-  playerDeckManager: {fileID: 0}
-  needHealthCostText: {fileID: 127879595}
-  needHealingCostText: {fileID: 38622524}
-  needGoldCostText: {fileID: 1696868891}
-  needSkillCostText: {fileID: 633923283}
-  levelHealthCostText: {fileID: 1077566281}
-  levelHealingCostText: {fileID: 1092228251}
-  levelGoldCostText: {fileID: 429795931}
-  levelSkillCostText: {fileID: 1371765010}
-  valueTextHealthCost: {fileID: 1005802976}
-  valueTextHealingCost: {fileID: 1642771062}
-  valueTextGoldCost: {fileID: 2073131915}
-  valueTextSkillCost: {fileID: 1204201589}
-  needHealthCost: 100
-  needHealingCost: 150
-  needGoldCost: 1000
-  needSkillCost: 1000
-  needCharUpgradeCost: 0
-  levelHealthCost: 1
-  levelHealingCost: 1
-  levelGoldCost: 1
-  levelSkillCost: 1
+  playerDeckManager: {fileID: 150732003}
+  needCostTexts:
+  - {fileID: 127879595}
+  - {fileID: 38622524}
+  - {fileID: 1696868891}
+  - {fileID: 633923283}
+  levelCostTexts:
+  - {fileID: 1077566281}
+  - {fileID: 1092228251}
+  - {fileID: 429795931}
+  - {fileID: 1371765010}
+  valueTexts:
+  - {fileID: 1005802976}
+  - {fileID: 1642771062}
+  - {fileID: 2073131915}
+  - {fileID: 1204201589}
+  charUpgradeCostTexts:
+  - {fileID: 504005415}
+  - {fileID: 1775193164}
+  - {fileID: 887362283}
+  - {fileID: 911132573}
+  needCosts: 6400000096000000e8030000e8030000
+  levelCosts: 01000000010000000100000001000000
+  needCharUpgradeCost: 100
 --- !u!114 &749662919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6448,7 +6455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goods:
-    RebirthStone: 0
+    RebirthStone: 100
     Coin: 0
     Diamond: 0
     AutoStone: 0
@@ -8438,7 +8445,7 @@ GameObject:
   - component: {fileID: 1005802977}
   - component: {fileID: 1005802976}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TX_ButtonMaxHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9174,7 +9181,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 749662918}
         m_TargetAssemblyTypeName: CharUpgradeManager, Assembly-CSharp
-        m_MethodName: UpgreadePlayer
+        m_MethodName: UpgradePlayer
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10784,7 +10791,7 @@ GameObject:
   - component: {fileID: 1204201590}
   - component: {fileID: 1204201589}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TX_ButtonSkillCoolDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11236,7 +11243,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 749662918}
         m_TargetAssemblyTypeName: CharUpgradeManager, Assembly-CSharp
-        m_MethodName: UpgreadePlayer
+        m_MethodName: UpgradePlayer
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14862,7 +14869,7 @@ GameObject:
   - component: {fileID: 1642771063}
   - component: {fileID: 1642771062}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TX_ButtonHealingSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17143,7 +17150,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 749662918}
         m_TargetAssemblyTypeName: CharUpgradeManager, Assembly-CSharp
-        m_MethodName: UpgreadePlayer
+        m_MethodName: UpgradePlayer
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17755,7 +17762,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 749662918}
         m_TargetAssemblyTypeName: CharUpgradeManager, Assembly-CSharp
-        m_MethodName: UpgreadePlayer
+        m_MethodName: UpgradePlayer
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18157,7 +18164,7 @@ GameObject:
   - component: {fileID: 2073131916}
   - component: {fileID: 2073131915}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TX_ButtonGoldDrop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

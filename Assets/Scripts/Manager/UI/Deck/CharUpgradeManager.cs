@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -11,113 +10,74 @@ public class CharUpgradeManager : MonoBehaviour
     public GetGoodsBehavior goodsBehavior;
     public PlayerDeckManager playerDeckManager;
 
-    [Header("* Texts")]
-    #region TextMeshs
-    public TextMeshProUGUI needHealthCostText;
-    public TextMeshProUGUI needHealingCostText;
-    public TextMeshProUGUI needGoldCostText;
-    public TextMeshProUGUI needSkillCostText;
-
-    public TextMeshProUGUI levelHealthCostText;
-    public TextMeshProUGUI levelHealingCostText;
-    public TextMeshProUGUI levelGoldCostText;
-    public TextMeshProUGUI levelSkillCostText;
-
-    public TextMeshProUGUI valueTextHealthCost;
-    public TextMeshProUGUI valueTextHealingCost;
-    public TextMeshProUGUI valueTextGoldCost;
-    public TextMeshProUGUI valueTextSkillCost;
-    #endregion
+    [Header("* Texts")] // 0: Health, 1: Healing, 2: Gold, 3: Skill
+    public TextMeshProUGUI[] needCostTexts;
+    public TextMeshProUGUI[] levelCostTexts;
+    public TextMeshProUGUI[] valueTexts;
+    public TextMeshProUGUI[] charUpgradeCostTexts;
 
     [Header("* Values")]
-    public int needHealthCost;
-    public int needHealingCost;
-    public int needGoldCost;
-    public int needSkillCost;
+    public int[] needCosts = new int[4];
+    public int[] levelCosts = new int[4] { 1, 1, 1, 1 };
     public int needCharUpgradeCost;
 
-    public int levelHealthCost = 1;
-    public int levelHealingCost = 1;
-    public int levelGoldCost = 1;
-    public int levelSkillCost = 1;
-
-
-    public void Update()
+    private void Update()
     {
-        needHealthCostText.text = needHealthCost.ToString();
-        needHealingCostText.text = needHealingCost.ToString();
-        needGoldCostText.text = needGoldCost.ToString();
-        needSkillCostText.text = needSkillCost.ToString();
-
-        levelHealthCostText.text = levelHealthCost.ToString();
-        levelHealingCostText.text = levelHealingCost.ToString();
-        levelGoldCostText.text = levelGoldCost.ToString();
-        levelSkillCostText.text = levelSkillCost.ToString();
-
-        valueTextHealthCost.text = (healthManager.maxHealth + 10).ToString();
-        valueTextHealingCost.text = (healthManager.healthRecoveryTime - 0.1).ToString();
-        valueTextGoldCost.text = (goodsBehavior.upgradeCost + 1).ToString();
-        valueTextSkillCost.text = (skillManager.coolDown - 0.01f).ToString();
+        UpdateTexts();
     }
 
-    public void UpgreadePlayer(int id)
+    private void UpdateTexts()
     {
-        if (playerDeckManager.inGameDeck[id] != null)
+        for (int i = 0; i < needCostTexts.Length; i++)
         {
-            if (goodsBehavior.goodsManager.goods.RebirthStone >= needCharUpgradeCost)
+            needCostTexts[i].text = needCosts[i].ToString();
+            levelCostTexts[i].text = levelCosts[i].ToString();
+        }
+
+        valueTexts[0].text = (healthManager.maxHealth + 10).ToString();
+        valueTexts[1].text = (healthManager.healthRecoveryTime - 0.1f).ToString();
+        valueTexts[2].text = (goodsBehavior.upgradeCost + 1).ToString();
+        valueTexts[3].text = (skillManager.coolDown - 0.01f).ToString();
+    }
+
+    public void UpgradePlayer(int id)
+    {
+        if (playerDeckManager.inGameDeck[id] != null && goodsBehavior.goodsManager.goods.RebirthStone >= needCharUpgradeCost)
+        {
+            goodsBehavior.goodsManager.goods.RebirthStone -= needCharUpgradeCost;
+            needCharUpgradeCost += 100;
+            charUpgradeCostTexts[id].text = needCharUpgradeCost.ToString();
+            playerDeckManager.inGameChar[id].GetComponent<CharCombatBehavior>().fireRate += 0.1f;
+        }
+    }
+
+    public void Upgrade(int type)
+    {
+        if (goodsBehavior.goodsManager.goods.Coin >= needCosts[type])
+        {
+            goodsBehavior.goodsManager.goods.Coin -= needCosts[type];
+
+            switch (type)
             {
-                goodsBehavior.goodsManager.goods.RebirthStone -= needCharUpgradeCost;
-                needCharUpgradeCost += 100;
-                playerDeckManager.inGameDeck[id].GetComponent<CharCombatBehavior>().fireRate += 0.1f;
+                case 0: // Health
+                    healthManager.maxHealth += 10;
+                    needCosts[type] += levelCosts[type] * 100;
+                    break;
+                case 1: // Healing
+                    healthManager.healthRecoveryTime -= 0.1f;
+                    needCosts[type] += levelCosts[type] * 150;
+                    break;
+                case 2: // Gold
+                    goodsBehavior.upgradeCost++;
+                    needCosts[type] += levelCosts[type] * 1000;
+                    break;
+                case 3: // Skill
+                    skillManager.coolDown -= 0.01f;
+                    needCosts[type] += levelCosts[type] * 1000;
+                    break;
             }
-        }
-    }
 
-    public void UpgradeHealth()
-    {
-        if (goodsBehavior.goodsManager.goods.Coin >= needHealthCost)
-        {
-            goodsBehavior.goodsManager.goods.Coin -= needHealthCost;
-            healthManager.maxHealth += 10;
-            needHealthCost += levelHealthCost * 100;
-
-            levelHealthCost++;
-        }
-    }
-
-    public void UpgradeHealing()
-    {
-        if (goodsBehavior.goodsManager.goods.Coin >= needHealingCost)
-        {
-            goodsBehavior.goodsManager.goods.Coin -= needHealingCost;
-            healthManager.healthRecoveryTime -= 0.1f;
-            needHealingCost += levelHealingCost * 150;
-
-            levelHealingCost++;
-        }
-    }
-
-    public void UpgradeGold()
-    {
-        if (goodsBehavior.goodsManager.goods.Coin >= needGoldCost)
-        {
-            goodsBehavior.goodsManager.goods.Coin -= needGoldCost;
-            goodsBehavior.upgradeCost++;
-            needGoldCost += levelGoldCost * 1000;
-
-            levelGoldCost++;
-        }
-    }
-
-    public void UpgradeSkill()
-    {
-        if (goodsBehavior.goodsManager.goods.Coin >= needSkillCost)
-        {
-            goodsBehavior.goodsManager.goods.Coin -= needSkillCost;
-            skillManager.coolDown -= 0.01f;
-            needSkillCost += levelSkillCost * 1000;
-
-            levelSkillCost++;
+            levelCosts[type]++;
         }
     }
 }

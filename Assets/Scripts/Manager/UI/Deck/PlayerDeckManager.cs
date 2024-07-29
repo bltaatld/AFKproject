@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerDeckManager : MonoBehaviour
 {
     public GameObject[] inGameDeck;
+    public GameObject[] inGameChar;
     public Transform[] charSpawnPoints;
     public GameObject currentSelectedChar;
 
@@ -46,7 +47,7 @@ public class PlayerDeckManager : MonoBehaviour
         else
         {
             inGameDeck[i] = currentSelectedChar;
-            Instantiate(inGameDeck[i], charSpawnPoints[i]);
+            inGameChar[i] = Instantiate(inGameDeck[i], charSpawnPoints[i]);
         }
     }
 }

@@ -101,7 +101,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 4665375272383814154, guid: 143d16c4e8dc0e242a164b0063308219, type: 3}
   spawnPoint: {fileID: 2097791185139144669}
   nameID: Player_4
-  targetTag: Enemy
+  shootTargetTag: Enemy
   projectileSpeed: 10
   detectionRadius: 3
   fireRate: 1
