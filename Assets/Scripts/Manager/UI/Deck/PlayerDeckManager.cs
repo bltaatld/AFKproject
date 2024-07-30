@@ -50,4 +50,10 @@ public class PlayerDeckManager : MonoBehaviour
             inGameChar[i] = Instantiate(inGameDeck[i], charSpawnPoints[i]);
         }
     }
+
+    public void LoadDeck(int i)
+    {
+        RemoveChildrenIfAny(i);
+        Instantiate(inGameDeck[i], charSpawnPoints[i]);
+    }
 }

@@ -1330,8 +1330,8 @@ MonoBehaviour:
   - {fileID: 1799428409256282257, guid: 829a472ec65d500468ea5065af75325b, type: 3}
   - {fileID: 1799428409256282257, guid: e27e6945ab586f84aa4b0d5fa9e0b2f2, type: 3}
   - {fileID: 1799428409256282257, guid: c03400357ba70274ba71bb3b3a59ebf5, type: 3}
-  playerChar:
-  - {fileID: 3338475942937977967, guid: fa232ba8e95731c4e9861655b8e29dca, type: 3}
+  pickedValue: 
+  playerChar: []
 --- !u!114 &150732003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10504,6 +10504,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1152569762}
   - component: {fileID: 1152569763}
+  - component: {fileID: 1152569764}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -10543,6 +10544,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ac89a4dfcf09c4fa27f299532ad970, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1152569764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152569761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e0a25b1fabbe548b896a01b760f18e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deckPickUpManager: {fileID: 150732002}
+  playerDeckManager: {fileID: 150732003}
+  goodsScoreManager: {fileID: 749662919}
+  waveManager: {fileID: 660177948}
+  charUpgradeManager: {fileID: 749662918}
+  assembleSkillManager: {fileID: 779271130}
+  questManager: {fileID: 446825834}
 --- !u!1 &1155678197
 GameObject:
   m_ObjectHideFlags: 0
@@ -14135,7 +14155,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1155678198}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.21154861
+  m_Size: 0.2115486
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

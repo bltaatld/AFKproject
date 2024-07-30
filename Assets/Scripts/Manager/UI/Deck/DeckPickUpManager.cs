@@ -10,6 +10,7 @@ public class DeckPickUpManager : MonoBehaviour
     public GameObject[] charData;
     public GameObject[] charIconData;
     public GameObject[] charIconImageData;
+    public List<int> pickedValue;
     public List<GameObject> playerChar;
 
     private System.Random random;
@@ -59,6 +60,7 @@ public class DeckPickUpManager : MonoBehaviour
         {
             int randomValue = GenerateRandomValueByProbability();
 
+            pickedValue.Add(randomValue);
             playerChar.Add(charData[randomValue]);
             InstantiateIcons(randomValue);
         }
@@ -68,6 +70,14 @@ public class DeckPickUpManager : MonoBehaviour
     {
         Instantiate(charIconImageData[randomValue], pickUpIconParent.transform);
         Instantiate(charIconData[randomValue], deckIconParent.transform);
+    }
+
+    public void LoadIcons()
+    {
+        for (int i=0; i < pickedValue.Count; i++)
+        {
+            Instantiate(charIconData[pickedValue[i]], deckIconParent.transform);
+        }
     }
 
     // 부모 오브젝트의 자식 오브젝트가 있는지 확인하고 삭제
