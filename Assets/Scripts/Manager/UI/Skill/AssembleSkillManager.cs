@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class AssembleSkillManager : MonoBehaviour
@@ -7,24 +8,33 @@ public class AssembleSkillManager : MonoBehaviour
     public GameObject[] skillSlot;
     public GameObject parentGrid;
     public GameObject selectedSkill;
+    public GoodsScoreManager goodsManager;
+    public TextMeshProUGUI currentAssembleText;
+    public TextMeshProUGUI currentAutoStoneText;
 
     [Header("* Values")]
     public int max_SkillPitureCount;
     public int current_SkillPitureCount;
+    public int canAssembleCount;
     public int ID_selectedSkill;
+    public int currentAutoIndex = 0;
     public float coolDown;
     public bool isClicked;
-    private bool canClick;
+    public bool isAutoAcive;
+
     private float currentTime;
+    private float resetTime;
 
     public void Update()
     {
+        // Time Check
         currentTime += Time.deltaTime;
-        if (currentTime > coolDown)
-        {
-            canClick = true;
-            currentTime = 0f;
-        }
+        resetTime += Time.deltaTime;
+        AutoTimingCheck();
+        AutoTimingResetCheck();
+
+        currentAssembleText.text = canAssembleCount + " / " + max_SkillPitureCount.ToString();
+        currentAutoStoneText.text = goodsManager.goods.AutoStone.ToString();
     }
 
     public static int GenerateRandomValue(int maxValue)
@@ -36,9 +46,32 @@ public class AssembleSkillManager : MonoBehaviour
         return random.Next(0, maxValue);
     }
 
+    public void AutoTimingCheck()
+    {
+        if (currentTime > 5f)
+        {
+            if (isAutoAcive)
+            {
+                AutoActivePicture();
+            }
+
+            canAssembleCount += 1;
+            currentTime = 0f;
+        }
+    }
+
+    public void AutoTimingResetCheck()
+    {
+        if (resetTime > 120f) // reset auto in 3 minute
+        {
+            isAutoAcive = false;
+            resetTime = 0f;
+        }
+    }
+
     public void SpawnSkillPickture()
     {
-        if (canClick)
+        if (canAssembleCount > 0)
         {
             int randomValue = GenerateRandomValue(skillSlot.Length);
 
@@ -49,13 +82,47 @@ public class AssembleSkillManager : MonoBehaviour
                 {
                     Instantiate(skillSlot[randomValue], parentGrid.transform);
                     current_SkillPitureCount++;
+                    canAssembleCount -= 1;
                 }
                 else
                 {
                     Debug.Log("Skill Picture is max");
                 }
-                canClick = false;
             }
+        }
+    }
+
+    public void BuyAuto()
+    {
+        if (goodsManager.goods.Diamond >= 100)
+        {
+            goodsManager.goods.Diamond -= 100;
+            goodsManager.goods.AutoStone += 1;
+        }
+    }
+
+    public void SetAuto()
+    {
+        if (goodsManager.goods.AutoStone >= 1)
+        {
+            isAutoAcive = true;
+            goodsManager.goods.AutoStone -= 1;
+        }
+    }
+
+    public void AutoActivePicture()
+    {
+        if (currentAutoIndex < parentGrid.transform.childCount && goodsManager.goods.AutoStone >= 1)
+        {
+            Transform child = parentGrid.transform.GetChild(currentAutoIndex);
+            child.GetComponent<AssemblePictureBehavior>().AutoActive();
+            Debug.Log($"Activated child at index {currentAutoIndex}");
+            currentAutoIndex++;
+        }
+        else
+        {
+            Debug.Log("All children have been activated.");
+            currentAutoIndex = 0; // Resetting the index to allow reactivation
         }
     }
 
@@ -65,5 +132,6 @@ public class AssembleSkillManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        currentAutoIndex = 0;
     }
 }

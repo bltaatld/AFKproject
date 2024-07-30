@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class EnemySpawnBehavior : MonoBehaviour
 {
-    public GameObject enemyPrefab; // 소환할 적 프리팹
-    public Vector2 spawnAreaMin; // 스폰 영역의 최소값 (좌측 하단)
-    public Vector2 spawnAreaMax; // 스폰 영역의 최대값 (우측 상단)
+    public GameObject enemyPrefab;
+    public Vector2 spawnAreaMin;
+    public Vector2 spawnAreaMax;
     public float cooltime;
     private float currentTime;
+
+    private int lastSpawnCount;
+    private bool isDead;
+    private List<GameObject> enemys = new List<GameObject>();
 
     private void Update()
     {
@@ -18,6 +22,11 @@ public class EnemySpawnBehavior : MonoBehaviour
         {
             SpawnEnemies();
             currentTime = 0;
+        }
+
+        if (!isDead)
+        {
+            lastSpawnCount = enemys.Count;
         }
     }
 
@@ -31,6 +40,30 @@ public class EnemySpawnBehavior : MonoBehaviour
     {
         float randomX = Random.Range(spawnAreaMin.x, spawnAreaMax.x);
         float randomY = Random.Range(spawnAreaMin.y, spawnAreaMax.y);
-        return new Vector3(randomX, randomY, 0f); // z축이 0인 2D 게임을 가정
+        return new Vector3(randomX, randomY, 0f);
+    }
+
+    public void RemoveEnemy()
+    {
+        isDead = true;
+
+        if(isDead)
+        {
+            for (int i = 0; i < lastSpawnCount; i++)
+            {
+                Destroy(enemys[i]);
+            }
+
+            enemys.Clear();
+            isDead = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            enemys.Add(collision.gameObject);
+        }
     }
 }

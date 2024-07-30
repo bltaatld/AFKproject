@@ -7,6 +7,7 @@ public class WaveManager : MonoBehaviour
 {
     [Header("* Components")]
     public EnemySpawnBehavior enemySpawnBehavior;
+    public QuestManager questManager;
     public GameObject[] enemyPrefabs;
     public GameObject[] middleStageIcons;
     public GameObject nextStageButton;
@@ -15,6 +16,7 @@ public class WaveManager : MonoBehaviour
     [Header("* Values")]
     public int needEnemyKillCount;
     public int current_EnemyKillCount;
+    public int total_EnemyKillCount;
     public int stageCount;
 
     [Header("* Enemy Upgrade Values")]
@@ -34,10 +36,11 @@ public class WaveManager : MonoBehaviour
         {
             // Set up to next stage
             current_Wave++;
+            questManager.stageClearCount++;
 
             // Upgrade Enemy
             enemySpawnBehavior.enemyPrefab = enemyPrefabs[current_Stage];
-            enemySpawnBehavior.cooltime += upgradeCoolTime;
+            enemySpawnBehavior.cooltime -= upgradeCoolTime;
             
             // Need Kill Count Upgrade
             needEnemyKillCount += current_Wave;

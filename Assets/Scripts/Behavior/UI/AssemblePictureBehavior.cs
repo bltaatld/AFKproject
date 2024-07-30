@@ -27,7 +27,7 @@ public class AssemblePictureBehavior : MonoBehaviour
             if (skillManager.ID_selectedSkill == ID_currentSkill && skillManager.selectedSkill != gameObject)
             {
                 Instantiate(ActivateSkillPrefab);
-                DestorySkillPiture();
+                DestorySkillPiture(2); // Assemble destory two object
                 ResetSkillManagerValue();
             }
             else
@@ -37,9 +37,16 @@ public class AssemblePictureBehavior : MonoBehaviour
         }
     }
 
-    private void DestorySkillPiture()
+    public void AutoActive()
     {
-        skillManager.current_SkillPitureCount -= 2;
+        Instantiate(ActivateSkillPrefab);
+        DestorySkillPiture(1); // Auto Assemble destory one object
+        ResetSkillManagerValue();
+    }
+
+    private void DestorySkillPiture(int i)
+    {
+        skillManager.current_SkillPitureCount -= i; 
         Destroy(skillManager.selectedSkill);
         Destroy(gameObject);
     }

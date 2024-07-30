@@ -25,6 +25,7 @@ public class EnemyCombatBehavoir : MonoBehaviour
         if(health <= 0)
         {
             waveManager.current_EnemyKillCount++;
+            waveManager.total_EnemyKillCount++;
             Instantiate(dropItem, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }

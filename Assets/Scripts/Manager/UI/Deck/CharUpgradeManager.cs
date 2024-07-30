@@ -7,6 +7,7 @@ public class CharUpgradeManager : MonoBehaviour
     [Header("* Components")]
     public PlayerHealthManager healthManager;
     public AssembleSkillManager skillManager;
+    public QuestManager questManager;
     public GetGoodsBehavior goodsBehavior;
     public PlayerDeckManager playerDeckManager;
 
@@ -46,7 +47,12 @@ public class CharUpgradeManager : MonoBehaviour
         {
             goodsBehavior.goodsManager.goods.RebirthStone -= needCharUpgradeCost;
             needCharUpgradeCost += 100;
-            charUpgradeCostTexts[id].text = needCharUpgradeCost.ToString();
+
+            for(int i = 0; i < needCostTexts.Length; i++)
+            {
+                charUpgradeCostTexts[i].text = needCharUpgradeCost.ToString();
+            }
+            
             playerDeckManager.inGameChar[id].GetComponent<CharCombatBehavior>().fireRate += 0.1f;
         }
     }
@@ -78,6 +84,7 @@ public class CharUpgradeManager : MonoBehaviour
             }
 
             levelCosts[type]++;
+            questManager.upgradeCount++;
         }
     }
 }
