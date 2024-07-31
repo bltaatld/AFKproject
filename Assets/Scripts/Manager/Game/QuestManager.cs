@@ -6,6 +6,7 @@ using UnityEngine;
 public class QuestManager : MonoBehaviour
 {
     [Header("* Components")]
+    public GameObject questScreen;
     public WaveManager waveManager;
     public GoodsScoreManager goodsScoreManager;
     public string[] descriptionString;
@@ -64,6 +65,20 @@ public class QuestManager : MonoBehaviour
                     currentQuest = 0;
                 }
                 break;
+        }
+    }
+
+    public void QuestScreenActive()
+    {
+        if (questScreen != null)
+        {
+            // Toggle the active state of questScreen
+            questScreen.SetActive(!questScreen.activeSelf);
+            Debug.Log("asdasd");
+        }
+        else
+        {
+            Debug.LogWarning("questScreen is not assigned.");
         }
     }
 

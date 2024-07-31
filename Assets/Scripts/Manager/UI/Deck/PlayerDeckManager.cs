@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerDeckManager : MonoBehaviour
 {
@@ -42,7 +43,7 @@ public class PlayerDeckManager : MonoBehaviour
         {
             RemoveChildrenIfAny(i);
             inGameDeck[i] = currentSelectedChar;
-            Instantiate(inGameDeck[i], charSpawnPoints[i]);
+            inGameChar[i] = Instantiate(inGameDeck[i], charSpawnPoints[i]);
         }
         else
         {
@@ -54,6 +55,6 @@ public class PlayerDeckManager : MonoBehaviour
     public void LoadDeck(int i)
     {
         RemoveChildrenIfAny(i);
-        Instantiate(inGameDeck[i], charSpawnPoints[i]);
+        inGameChar[i] = Instantiate(inGameDeck[i], charSpawnPoints[i]);
     }
 }

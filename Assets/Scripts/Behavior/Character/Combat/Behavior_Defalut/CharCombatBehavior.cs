@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class CharCombatBehavior : MonoBehaviour
     public string shootTargetTag = "Enemy";
     public float projectileSpeed = 10f;
     public float detectionRadius = 10f;
-    public float fireRate = 1f; 
+    public float fireRate = 1f;
 
     void Update()
     {

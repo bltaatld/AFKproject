@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireBuffSkillBehavior : MonoBehaviour
+public class HealthBuffSkill : MonoBehaviour
 {
     public int buffValue;
     public float remainTime;
@@ -10,12 +10,12 @@ public class FireBuffSkillBehavior : MonoBehaviour
 
     public GameObject[] FindAllObjects()
     {
-        CharCombatBehavior[] charCombatBehaviors = FindObjectsOfType<CharCombatBehavior>();
-        GameObject[] objects = new GameObject[charCombatBehaviors.Length];
+        PlayerHealthManager[] healthManager = FindObjectsOfType<PlayerHealthManager>();
+        GameObject[] objects = new GameObject[healthManager.Length];
 
-        for (int i = 0; i < charCombatBehaviors.Length; i++)
+        for (int i = 0; i < healthManager.Length; i++)
         {
-            objects[i] = charCombatBehaviors[i].gameObject;
+            objects[i] = healthManager[i].gameObject;
         }
 
         return objects;
@@ -30,7 +30,7 @@ public class FireBuffSkillBehavior : MonoBehaviour
     private void Update()
     {
         currentTime += Time.deltaTime;
-        if(currentTime > remainTime)
+        if (currentTime > remainTime)
         {
             ResetFireRate();
             Destroy(gameObject);
@@ -42,7 +42,7 @@ public class FireBuffSkillBehavior : MonoBehaviour
         GameObject[] objectsWithCharCombatBehavior = FindAllObjects();
         foreach (GameObject obj in objectsWithCharCombatBehavior)
         {
-            obj.GetComponent<CharCombatBehavior>().fireRate += buffValue;
+            obj.GetComponent<PlayerHealthManager>().healingPower += buffValue;
         }
     }
 
@@ -51,7 +51,7 @@ public class FireBuffSkillBehavior : MonoBehaviour
         GameObject[] objectsWithCharCombatBehavior = FindAllObjects();
         foreach (GameObject obj in objectsWithCharCombatBehavior)
         {
-            obj.GetComponent<CharCombatBehavior>().fireRate -= buffValue;
+            obj.GetComponent<PlayerHealthManager>().healingPower -= buffValue;
         }
     }
 }

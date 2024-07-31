@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using System.Linq;
 
 public class CharUpgradeManager : MonoBehaviour
 {
@@ -21,10 +22,13 @@ public class CharUpgradeManager : MonoBehaviour
     public int[] needCosts = new int[4];
     public int[] levelCosts = new int[4] { 1, 1, 1, 1 };
     public int needCharUpgradeCost;
+    public float currentUpgradeFirerate;
+    private bool isPlayerUpgradeActive;
 
     private void Update()
     {
         UpdateTexts();
+        UpgradePlayer();
     }
 
     private void UpdateTexts()
@@ -41,20 +45,41 @@ public class CharUpgradeManager : MonoBehaviour
         valueTexts[3].text = (skillManager.coolDown - 0.01f).ToString();
     }
 
-    public void UpgradePlayer(int id)
+    public void SetActiveFireRate()
     {
-        if (playerDeckManager.inGameDeck[id] != null && goodsBehavior.goodsManager.goods.RebirthStone >= needCharUpgradeCost)
+        isPlayerUpgradeActive = true;
+    }
+
+    public void SetDefalutPlayer()
+    {
+        for (int i = 0; i < playerDeckManager.inGameChar.Length; i++)
+        {
+            playerDeckManager.inGameChar[i].GetComponent<CharCombatBehavior>().fireRate = 1f;
+
+            if (currentUpgradeFirerate >= 0)
+            {
+                playerDeckManager.inGameChar[i].GetComponent<CharCombatBehavior>().fireRate += currentUpgradeFirerate;
+                charUpgradeCostTexts[i].text = needCharUpgradeCost.ToString();
+            }
+        }
+    }
+
+    public void UpgradePlayer()
+    {
+        if (isPlayerUpgradeActive && playerDeckManager.inGameDeck != null && playerDeckManager.inGameDeck.All(item => item != null) && goodsBehavior.goodsManager.goods.RebirthStone >= needCharUpgradeCost)
         {
             goodsBehavior.goodsManager.goods.RebirthStone -= needCharUpgradeCost;
             needCharUpgradeCost += 100;
+            currentUpgradeFirerate += 0.1f;
 
-            for(int i = 0; i < needCostTexts.Length; i++)
+            for (int i = 0; i < needCostTexts.Length; i++)
             {
                 charUpgradeCostTexts[i].text = needCharUpgradeCost.ToString();
+                playerDeckManager.inGameChar[i].GetComponent<CharCombatBehavior>().fireRate += currentUpgradeFirerate;
             }
-            
-            playerDeckManager.inGameChar[id].GetComponent<CharCombatBehavior>().fireRate += 0.1f;
         }
+
+        isPlayerUpgradeActive = false;
     }
 
     public void Upgrade(int type)

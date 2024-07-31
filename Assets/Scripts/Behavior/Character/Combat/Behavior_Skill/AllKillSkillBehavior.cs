@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AllKillSkillBehavior : MonoBehaviour
+public class GoldBuffSkill : MonoBehaviour
 {
     public float remainTime;
     private float currentTime;

@@ -94,9 +94,9 @@ public class AssembleSkillManager : MonoBehaviour
 
     public void BuyAuto()
     {
-        if (goodsManager.goods.Diamond >= 100)
+        if (goodsManager.goods.Diamond >= 1000)
         {
-            goodsManager.goods.Diamond -= 100;
+            goodsManager.goods.Diamond -= 1000;
             goodsManager.goods.AutoStone += 1;
         }
     }
@@ -112,7 +112,7 @@ public class AssembleSkillManager : MonoBehaviour
 
     public void AutoActivePicture()
     {
-        if (currentAutoIndex < parentGrid.transform.childCount && goodsManager.goods.AutoStone >= 1)
+        if (currentAutoIndex < parentGrid.transform.childCount)
         {
             Transform child = parentGrid.transform.GetChild(currentAutoIndex);
             child.GetComponent<AssemblePictureBehavior>().AutoActive();

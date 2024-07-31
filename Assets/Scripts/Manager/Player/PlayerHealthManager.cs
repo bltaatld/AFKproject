@@ -15,6 +15,7 @@ public class PlayerHealthManager : MonoBehaviour
     [Header("* Values")]
     public int currentHealth;
     public int maxHealth;
+    public int healingPower = 1;
     public float healthRecoveryTime;
     public float getDamageTime;
     private float healthTime;
@@ -82,7 +83,7 @@ public class PlayerHealthManager : MonoBehaviour
         {
             if (currentHealth < maxHealth)
             {
-                currentHealth += 1;
+                currentHealth += healingPower;
                 healthTime = 0f;
             }
         }

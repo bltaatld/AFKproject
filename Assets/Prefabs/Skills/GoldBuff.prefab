@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 679217462653883102}
-  - component: {fileID: 3563012588589076451}
   - component: {fileID: 5010808124292089629}
+  - component: {fileID: 6551856272904660547}
   m_Layer: 0
   m_Name: GoldBuff
   m_TagString: Untagged
@@ -25,28 +25,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4692272177594289881}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.43, y: 0.54, z: 80.88596}
   m_LocalScale: {x: 6.8955765, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3563012588589076451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4692272177594289881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e2454d2adbe7bd46b19b0cf77f3b7f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buffValue: 10
-  remainTime: 10
 --- !u!212 &5010808124292089629
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -89,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.14185047, a: 0.25490198}
+  m_Color: {r: 1, g: 0.9059174, b: 0, a: 0.25490198}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -99,3 +85,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6551856272904660547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4692272177594289881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4807f7a0d11a946b3716efc4cd9261, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffValue: 10
+  remainTime: 10
